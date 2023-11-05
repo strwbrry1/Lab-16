@@ -1,8 +1,10 @@
 ﻿
 #include "stdio.h"
-#define NUM_ELEMENTS 10
+#define NUM_ELEMENTS 20
 
 void printElements();
+void deleteElement(int index);
+void insertElement(int index, int elem);
 void arrInput();
 void odds10();
 int morethan10();
@@ -37,6 +39,15 @@ int main()
         printf("10: Всё меньше 4 теперь 4\n");
         printf("11: Элементы между максимальным и минимальным х10\n");
         printf("12: Элементы между первым и последним чётным х100\n");
+        printf("/// НАЧАЛАСЬ 17 ЛАБА ///\n");
+        printf("13: Удалить элемент по индексу\n");
+        printf("14: Вставить элемент по индексу\n");
+        printf("15: Удалить минимальный элемент\n");
+        printf("16: Перед минимальным элементом вставить ноль\n");
+        printf("17: Удалить все чётные элементы\n");
+        printf("18: Добавить в начало минимальный элемент\n");
+        printf("19: Всё меньше 4 теперь не существует\n");
+        printf("20: Дублировать все чётные\n");
         printf("\n");
         printf("0: Выйти из программы\n");
         printf("Ввод >>> ");
@@ -125,7 +136,59 @@ int main()
             for (int i = fInd + 1; i < lInd; i++) {
                 arr[i] *= 100;
             }
+        case 13:
+            printf("\nИндекс удаляемого элемента -> ");
+            scanf_s("%d", &index);
+            deleteElement(index);
+            break;
+        case 14:
+            printf("\nИндекс куда вставить -> ");
+            scanf_s("%d", &index);
+            int elem;
+            printf("\nЧто вставить -> ");
+            scanf_s("%d", &elem);
+            insertElement(index, elem);
+            break;
+        case 15:
+            printf(">> Удалён элемент с индексом %d <<\n\n", min());
+            deleteElement(min());
+            break;
+        case 16:
+            printf(">> Перед минимальным вставлен ноль <<\n\n");
+            insertElement(min(), 0);
+            break;
+        case 17:
+            for (int i = 0; i < n; i++) {
+                if (arr[i] % 2 == 0) {
+                    deleteElement(i);
+                    i--;
+                }
+            }
+            printf(">> Удалено <<\n\n");
+            break;
+        case 18:
+            insertElement(0, arr[min()]);
+            break;
+
+        case 19:
+            for (int i = 0; i < n; i++) {
+                if (arr[i] < 4) {
+                    deleteElement(i);
+                    i--;
+                }
+            }
+            break;
+        case 20:
+            int edge = numOfEvens();
+            for (int i = 0; i < n; i++) {
+                if (arr[i] % 2 == 0) {
+                    insertElement(i, arr[i]);
+                    i++;
+                }
+            }
+            break;
         }
+        
     } while (choice != 0);
 }
 
@@ -135,6 +198,31 @@ void printElements(){
         printf("%d ", arr[i]);
     }
     printf(">\n");
+}
+
+void deleteElement(int index) {
+    for (int i = index; i < n - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    n--;
+}
+
+void insertElement(int index, int elem) {
+    for (int i = n; i > index; i--) {
+        arr[i] = arr[i - 1];
+    }
+    n++;
+    arr[index] = elem;
+}
+
+int numOfEvens() {
+    int res = 0;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] % 2 == 0) {
+            res++;
+        }
+    }
+    return res;
 }
 
 void arrInput() {
