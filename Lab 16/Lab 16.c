@@ -179,7 +179,6 @@ int main()
             }
             break;
         case 20:
-            int edge = numOfEvens();
             for (int i = 0; i < n; i++) {
                 if (arr[i] % 2 == 0) {
                     insertElement(i, arr[i]);
@@ -213,16 +212,6 @@ void insertElement(int index, int elem) {
     }
     n++;
     arr[index] = elem;
-}
-
-int numOfEvens() {
-    int res = 0;
-    for (int i = 0; i < n; i++) {
-        if (arr[i] % 2 == 0) {
-            res++;
-        }
-    }
-    return res;
 }
 
 void arrInput() {
