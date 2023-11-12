@@ -1,6 +1,9 @@
-﻿
+﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_DEPRECATE
+#define _CRT_NONSTDC_NO_DEPRECATE
 #include "stdio.h"
 #define NUM_ELEMENTS 20
+
 
 void printElements();
 void deleteElement(int index);
@@ -48,6 +51,8 @@ int main()
         printf("18: Добавить в начало минимальный элемент\n");
         printf("19: Всё меньше 4 теперь не существует\n");
         printf("20: Дублировать все чётные\n");
+        printf("21: Добавить значения массива в файл\n");
+        printf("22: Взять значения массива из файла\n");
         printf("\n");
         printf("0: Выйти из программы\n");
         printf("Ввод >>> ");
@@ -60,10 +65,10 @@ int main()
             odds10();
             break;
         case 3:
-            printf(">> %d <<\n\n", arr[min()]);
+            printf("\n>> %d <<\n\n", arr[min()]);
             break;
         case 4:
-            printf(">> %d элементов больше 10 <<\n\n", morethan10());
+            printf("\n>> %d элементов больше 10 <<\n\n", morethan10());
             break;
         case 5:
             int index = findLastEven();
@@ -79,7 +84,7 @@ int main()
                     con++;
                 }
             }
-            printf(">> %d чётных левее минимального <<\n\n", con);
+            printf("\n>> %d чётных левее минимального <<\n\n", con);
             break;
         case 7:
             index = min();
@@ -97,10 +102,10 @@ int main()
                 int temp = arr[maxIndex];
                 arr[maxIndex] = arr[minIndex];
                 arr[minIndex] = temp;
-                printf(">> Оп-па <<\n\n");
+                printf("\n>> Оп-па <<\n\n");
             }
             else {
-                printf(">> Мало элементов в списке <<\n\n");
+                printf("\n>> Мало элементов в списке <<\n\n");
             }
             break;
         case 9:
@@ -150,11 +155,11 @@ int main()
             insertElement(index, elem);
             break;
         case 15:
-            printf(">> Удалён элемент с индексом %d <<\n\n", min());
+            printf("\n>> Удалён элемент с индексом %d <<\n\n", min());
             deleteElement(min());
             break;
         case 16:
-            printf(">> Перед минимальным вставлен ноль <<\n\n");
+            printf("\n>> Перед минимальным вставлен ноль <<\n\n");
             insertElement(min(), 0);
             break;
         case 17:
@@ -164,7 +169,7 @@ int main()
                     i--;
                 }
             }
-            printf(">> Удалено <<\n\n");
+            printf("\n>> Удалено <<\n\n");
             break;
         case 18:
             insertElement(0, arr[min()]);
@@ -185,6 +190,29 @@ int main()
                     i++;
                 }
             }
+            break;
+        case 21:
+            FILE* fout = fopen("arr_output.txt", "wt");
+
+            for (int i = 0; i < n; i++) {
+                fprintf(fout, "%d ", arr[i]);
+            }
+            printf("\n>> Массив был записан в файл arr_output.txt <<\n\n");
+            fclose(fout);
+            break;
+        case 22:
+            FILE * fin = fopen("arr_input.txt", "rt");
+
+            fscanf(fin, "%d", &n);
+            for (int i = 0; i < n; i++) {
+                fscanf(fin, "%d", &arr[i]);
+            }
+            printf("\n>> Из файла записан массив arr[%d] = ", n);
+            for (int i = 0; i < n; i++) {
+                printf("%d ", arr[i]);
+            }
+            printf("<<\n\n");
+            fclose(fin);
             break;
         }
         
